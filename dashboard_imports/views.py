@@ -18,9 +18,11 @@ class ImportsProcessViewSet(viewsets.ModelViewSet):
         if adua is not None:
             queryset = queryset.filter(adua=adua)
 
+        '''
         paispro = self.request.query_params.get('paispro', None)
         if paispro is not None:
             queryset = queryset.filter(paispro=paispro)
+        '''
 
         vafodo_min = self.request.query_params.get('vafodo_min', None)
         vafodo_max = self.request.query_params.get('vafodo_max', None)

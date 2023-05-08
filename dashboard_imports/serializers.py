@@ -6,7 +6,7 @@ from .models import ImportProcess, Country
 class ImportProcessSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = ImportProcess
-        fields = ('fech', 'adua', 'paisgen', 'paispro', 'vafodo')
+        fields = ('fech', 'adua', 'paisgen', 'vafodo')
 
 
 class ImportProcessByProCountrySerializer(serializers.HyperlinkedModelSerializer):
