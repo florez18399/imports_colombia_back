@@ -21,7 +21,7 @@ class ImportProcessSerializer(serializers.HyperlinkedModelSerializer):
 
     class Meta:
         model = ImportProcess
-        fields = ('id', 'fech', 'adua', 'paispro', 'paisgen', 'vafodo')
+        fields = ('id', 'fech', 'adua', 'paispro', 'paisgen', 'vafodo', 'flete', 'cuidaexp', 'luin', 'baseiva')
 
 
 class ImportProcessByProCountrySerializer(serializers.HyperlinkedModelSerializer):
@@ -38,4 +38,12 @@ class ImportProcessByProCountrySerializer(serializers.HyperlinkedModelSerializer
         fields = ('paispro', 'paispro__name', 'num_procesos', 'sum_vafodo')
 
 
+class ImportProcessByProCitySerializer(serializers.HyperlinkedModelSerializer):
+    cuidaexp = serializers.CharField()
+    num_procesos = serializers.IntegerField()
+    sum_vafodo = serializers.IntegerField()
+
+    class Meta:
+        model = ImportProcess
+        fields = ('cuidaexp', 'num_procesos', 'sum_vafodo')
 

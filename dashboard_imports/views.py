@@ -3,7 +3,7 @@ from rest_framework import viewsets
 
 from .pagination import ImportsProcessPagination
 from .serializers import ImportProcessSerializer, ImportProcessByProCountrySerializer, CountrySerializer, \
-    AduanaSerializer
+    AduanaSerializer, ImportProcessByProCitySerializer
 from .models import ImportProcess, Country, Aduana
 
 
@@ -40,6 +40,13 @@ class ImportsProcessByProCountryViewSet(viewsets.ModelViewSet):
     queryset = ImportProcess.objects.values('paispro', 'paispro__name')\
         .annotate(num_procesos=Count('id'), sum_vafodo=Sum('vafodo')) \
         .order_by('-sum_vafodo')
+
+
+class ImportsProcessByCityViewSet(viewsets.ModelViewSet):
+    serializer_class = ImportProcessByProCitySerializer
+    queryset = ImportProcess.objects.values('cuidaexp')\
+        .annotate(num_procesos=Count('id'), sum_vafodo=Sum('vafodo')) \
+        .order_by('-num_procesos')
 
 
 class ContriesView(viewsets.ModelViewSet):

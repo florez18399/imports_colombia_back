@@ -7,6 +7,7 @@ router.register(r'countries', views.ContriesView, basename='countries')
 router.register(r'aduanas', views.AduanasView, basename='aduanas')
 router.register(r'imports', views.ImportsProcessViewSet, basename='imports')
 router.register(r'by_pro_country', views.ImportsProcessByProCountryViewSet, basename='by_pro_country')
+router.register(r'by_pro_city', views.ImportsProcessByCityViewSet, basename='by_pro_city')
 
 
 urlpatterns = [
