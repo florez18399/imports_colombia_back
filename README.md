@@ -44,6 +44,12 @@ $ python manage.py migrate
 ```
 
 Ejecutando el script de inserción de datos 
+Ejecutar en postgres los archivos:
+```
+[inserts_paises.sql](inserts_paises.sql)
+[inserts_aduanas.sql](inserts_aduanas.sql)
+```
+
 
 ```
 $ python load_data.py

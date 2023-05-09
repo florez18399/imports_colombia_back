@@ -1,6 +1,15 @@
 from django.db import models
 from django.forms import model_to_dict
 
+
+class Aduana(models.Model):
+    adua = models.IntegerField(unique=True, primary_key=True)
+    name = models.CharField(max_length=200, db_column="name")
+
+    class Meta:
+        managed = False
+        db_table = 'aduanas'
+
 class Country(models.Model):
     cod = models.IntegerField(unique=True, primary_key=True)
     name = models.CharField(max_length=100, db_column="nombre")
@@ -9,11 +18,11 @@ class Country(models.Model):
         managed = False
         db_table = 'cods_paises'
 
+
 class ImportProcess(models.Model):
     fech = models.IntegerField()
-    adua = models.IntegerField()
+    adua = models.ForeignKey(Aduana, on_delete=models.SET_NULL, null=True, db_column='adua', default=None)
     paisgen = models.IntegerField()
-    #paispro = models.IntegerField()
     paispro = models.ForeignKey(Country, on_delete=models.SET_NULL, null=True, db_column='paispro', default=None)
     paiscom = models.IntegerField()
     deptodes = models.IntegerField()

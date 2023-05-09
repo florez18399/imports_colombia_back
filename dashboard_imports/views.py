@@ -2,8 +2,9 @@ from django.db.models import Count, Sum, F
 from rest_framework import viewsets
 
 from .pagination import ImportsProcessPagination
-from .serializers import ImportProcessSerializer, ImportProcessByProCountrySerializer, CountrySerializer
-from .models import ImportProcess, Country
+from .serializers import ImportProcessSerializer, ImportProcessByProCountrySerializer, CountrySerializer, \
+    AduanaSerializer
+from .models import ImportProcess, Country, Aduana
 
 
 class ImportsProcessViewSet(viewsets.ModelViewSet):
@@ -18,11 +19,9 @@ class ImportsProcessViewSet(viewsets.ModelViewSet):
         if adua is not None:
             queryset = queryset.filter(adua=adua)
 
-        '''
         paispro = self.request.query_params.get('paispro', None)
         if paispro is not None:
             queryset = queryset.filter(paispro=paispro)
-        '''
 
         vafodo_min = self.request.query_params.get('vafodo_min', None)
         vafodo_max = self.request.query_params.get('vafodo_max', None)
@@ -38,7 +37,7 @@ class ImportsProcessViewSet(viewsets.ModelViewSet):
 
 class ImportsProcessByProCountryViewSet(viewsets.ModelViewSet):
     serializer_class = ImportProcessByProCountrySerializer
-    queryset = ImportProcess.objects.values('paispro')\
+    queryset = ImportProcess.objects.values('paispro', 'paispro__name')\
         .annotate(num_procesos=Count('id'), sum_vafodo=Sum('vafodo')) \
         .order_by('-sum_vafodo')
 
@@ -46,3 +45,9 @@ class ImportsProcessByProCountryViewSet(viewsets.ModelViewSet):
 class ContriesView(viewsets.ModelViewSet):
     serializer_class = CountrySerializer
     queryset = Country.objects.all()
+
+
+class AduanasView(viewsets.ModelViewSet):
+    serializer_class = AduanaSerializer
+    queryset = Aduana.objects.all()
+
